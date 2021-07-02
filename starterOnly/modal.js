@@ -35,7 +35,7 @@ function closeModal() {
   modalValid.style.display = "none";
 }
 
-function closeValidModal(){
+function closeValidModal() {
   modalValid.style.display = "none";
 }
 // close valid modal (with X)
@@ -44,7 +44,6 @@ closeXBtn.addEventListener("click", closeValidModal);
 // close valid modal (with button)
 let closeBtn = document.querySelector("#closeBtn");
 closeBtn.addEventListener("click", closeValidModal);
-
 
 // validation of form.
 document.querySelector("#submit").addEventListener("click", (event) => {
@@ -76,7 +75,7 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     firstName.style.border = "2px red solid";
     firstName.focus();
     return false;
-  } else if (!exp.test(firstName.value) == true){
+  } else if (!exp.test(firstName.value) == true) {
     // first name has numbers or special characters
     firstNameMess.style.color = "red";
     firstNameMess.innerHTML =
@@ -85,7 +84,7 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     firstName.focus();
     return false;
   } else {
-    firstNameMess.innerHTML =""
+    firstNameMess.innerHTML = "";
     firstName.style.border = "2px green solid";
     firstNameValidationState = true;
   }
@@ -111,16 +110,16 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     lastName.style.border = "2px red solid";
     lastName.focus();
     return false;
-  } else if (!exp.test(lastNameValue) == true){
-     // last name has numbers or special characters
-     lastNameMess.style.color = "red";
-     lastNameMess.innerHTML =
-       "<p>Ce champ ne doit pas contenir de caractères spéciaux ou des chiffres. </p>";
-     lastName.style.border = "2px red solid";
-     lastName.focus();
-     return false;
-  }else {
-    lastNameMess.innerHTML = ""
+  } else if (!exp.test(lastNameValue) == true) {
+    // last name has numbers or special characters
+    lastNameMess.style.color = "red";
+    lastNameMess.innerHTML =
+      "<p>Ce champ ne doit pas contenir de caractères spéciaux ou des chiffres. </p>";
+    lastName.style.border = "2px red solid";
+    lastName.focus();
+    return false;
+  } else {
+    lastNameMess.innerHTML = "";
     lastName.style.border = "2px green solid";
     lastNameValidationState = true;
   }
@@ -137,14 +136,19 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     email.style.border = "2px red solid";
     email.focus();
     return false;
-  } else if (/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email.value) == false) { // test of the email with a regex
+  } else if (
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+      email.value
+    ) == false
+  ) {
+    // test of the email with a regex
     emailMess.style.color = "red";
     emailMess.innerHTML = "<p>Ce champ n'est pas valide.</p>";
     email.style.border = "2px red solid";
     email.focus();
     return false;
   } else {
-    emailMess.innerHTML = ""
+    emailMess.innerHTML = "";
     email.style.border = "2px green solid";
     emailValidationState = true;
   }
@@ -155,7 +159,7 @@ document.querySelector("#submit").addEventListener("click", (event) => {
   let birthdateMess = document.getElementById("birthdate-mess");
   let birthdateValidationState = false;
   let today = new Date();
-  // Date.parse()  renvoie le nombre de millisecondes écoulées 
+  // Date.parse()  renvoie le nombre de millisecondes écoulées
   // entre cette date et le premier janvier 1970, 00:00:00 UTC
   let birthTime = Date.parse(birth);
   let todayTime = Date.parse(today);
@@ -166,13 +170,14 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     birthdate.style.border = "2px red solid";
     birthdate.focus();
     return false;
-  } else if(birthTime > todayTime){
+  } else if (birthTime > todayTime) {
     birthdateMess.style.color = "red";
-    birthdateMess.innerHTML = "<p>La date est supérieure à la date du jour.</p>";
+    birthdateMess.innerHTML =
+      "<p>La date est supérieure à la date du jour.</p>";
     birthdate.style.border = "2px red solid";
     birthdate.focus();
     return false;
-  }else {
+  } else {
     birthdateMess.innerHTML = "";
     birthdate.style.border = "2px green solid";
     birthdateValidationState = true;
@@ -277,5 +282,4 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     closeModal();
     launchValid();
   }
-
 });
