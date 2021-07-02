@@ -11,6 +11,7 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
+const modalValid = document.querySelector(".bground2");
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -19,7 +20,11 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   modalbg.style.display = "block";
 }
-
+// launch modal valid form
+const launchValid = () => {
+  modalValid.style.display = "block";
+  document.getElementById("subscribe").reset(); //empty the form
+};
 //close modal event
 let closeModalBtn = document.querySelector(".close-modal");
 closeModalBtn.addEventListener("click", closeModal);
@@ -27,20 +32,31 @@ closeModalBtn.addEventListener("click", closeModal);
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
+  modalValid.style.display = "none";
 }
+
+function closeValidModal(){
+  modalValid.style.display = "none";
+}
+// close valid modal (with X)
+let closeXBtn = document.querySelector(".close-modal2");
+closeXBtn.addEventListener("click", closeValidModal);
+// close valid modal (with button)
+let closeBtn = document.querySelector("#closeBtn");
+closeBtn.addEventListener("click", closeValidModal);
+
 
 // validation of form.
 document.querySelector("#submit").addEventListener("click", (event) => {
   event.preventDefault();
 
-  /*- - - - - - - - - - - - first name validation  - - - - - - - - - - - - */
+  /* - - - - - - - - - - -  first name validation - - - - - - - - - - - */
   let firstName = document.forms["reserve"]["firstname"];
-  //length of firstname
   // trim()  delete spaces at the beginning and the end of a string
   let firstNameLength = firstName.value.trim().length;
   let firstNameMess = document.getElementById("firstname-mess");
   let firstNameValidationState = false;
-  let exp = /^([a-zA-Z]+[,.]?[ ]?|[a-z]+['-]?)+$/;
+  let exp = /^([a-zA-Z]+[ ]?|[a-z]+['-]?)+$/;
   // if first name is empty
   if (firstNameLength == 0) {
     // error message in red
@@ -61,7 +77,7 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     firstName.focus();
     return false;
   } else if (!exp.test(firstName.value) == true){
-    // last name has numbers or special characters
+    // first name has numbers or special characters
     firstNameMess.style.color = "red";
     firstNameMess.innerHTML =
       "<p>Ce champ ne doit pas contenir de caractères spéciaux ou des chiffres. </p>";
@@ -69,16 +85,12 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     firstName.focus();
     return false;
   } else {
-    //if firstname is ok
-    // valid message in green
-    firstNameMess.style.color = "green";
-    firstNameMess.innerHTML = "<p>Ce champ est valide.</p>";
-    // field border in green
+    firstNameMess.innerHTML =""
     firstName.style.border = "2px green solid";
     firstNameValidationState = true;
   }
 
-  /*- - - - - - - - - - - - last name validation  - - - - - - - - - - - - */
+  /* - - - - - - - - - - -  last name validation - - - - - - - - - - - */
   var lastName = document.forms["reserve"]["lastname"];
   let lastNameValue = lastName.value;
   let lastNameLength = lastNameValue.trim().length;
@@ -108,18 +120,15 @@ document.querySelector("#submit").addEventListener("click", (event) => {
      lastName.focus();
      return false;
   }else {
-    //if lastname is ok
-    lastNameMess.style.color = "green";
-    lastNameMess.innerHTML = "<p>Ce champ est valide.</p>";
+    lastNameMess.innerHTML = ""
     lastName.style.border = "2px green solid";
     lastNameValidationState = true;
   }
 
-  /*- - - - - - - - - - - - email validation  - - - - - - - - - - - - */
+  /* - - - - - - - - - - -  email validation - - - - - - - - - - - */
   var email = document.forms["reserve"]["email"];
   let emailLength = email.value.trim().length;
   let emailMess = document.getElementById("email-mess");
-  let emailVal = document.getElementById("email-mess");
   let emailValidationState = false;
   // if email is empty
   if (emailLength == 0) {
@@ -135,13 +144,12 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     email.focus();
     return false;
   } else {
-    emailMess.style.color = "green";
-    emailMess.innerHTML = "<p>Ce champ est valide.</p>";
+    emailMess.innerHTML = ""
     email.style.border = "2px green solid";
     emailValidationState = true;
   }
 
-  /*- - - - - - - - - - - - birthdate validation  - - - - - - - - - - - - */
+  /* - - - - - - - - - - -  birthdate validation - - - - - - - - - - - */
   var birthdate = document.forms["reserve"]["birthdate"];
   let birth = birthdate.value; // format yyyy-MM-dd
   let birthdateMess = document.getElementById("birthdate-mess");
@@ -165,11 +173,12 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     birthdate.focus();
     return false;
   }else {
+    birthdateMess.innerHTML = "";
     birthdate.style.border = "2px green solid";
     birthdateValidationState = true;
   }
 
-  /*- - - - - - - - - - - - number of tournaments validation  - - - - - - - - - - - - */
+  /* - - - - - - - - - - -  number of tournaments validation - - - - - - - - - - - */
   let quantity = document.forms["reserve"]["quantity"];
   let quantityValue = quantity.value;
   let quantityMess = document.getElementById("quantity-mess");
@@ -191,11 +200,12 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     quantity.focus();
     return false;
   } else {
+    quantityMess.innerHTML = "";
     quantity.style.border = "2px green solid";
     quantityValidationState = true;
   }
 
-  /*- - - - - - - - - - - - location validation  - - - - - - - - - - - - */
+  /* - - - - - - - - - - -  location validation - - - - - - - - - - - */
   let locationsMess = document.getElementById("locations-mess");
   let locationValidationState = false;
   // number oflocations checked
@@ -215,6 +225,7 @@ document.querySelector("#submit").addEventListener("click", (event) => {
       locationsMess.innerHTML =
         "<p>Aucune participation dans le champ précédent: aucune ville ne doit être cochée.</p>";
     } else {
+      locationsMess.innerHTML = "";
       locationValidationState = true;
     }
   } else if (quantityValue > 0) {
@@ -231,7 +242,7 @@ document.querySelector("#submit").addEventListener("click", (event) => {
       locationValidationState = true;
     }
   }
-  /*- - - - - - - - - - - - checking conditions validation  - - - - - - - - - - - - */
+  /* - - - - - - - - - - -  checking conditions validation - - - - - - - - - - - */
   let checkbox = document.forms["reserve"]["checkbox1"]; // Input de la case.
   let checkboxMess = document.getElementById("checkbox-mess");
   let checkboxValidationState = false;
@@ -243,12 +254,13 @@ document.querySelector("#submit").addEventListener("click", (event) => {
       "<p>Vous devez lire et accepter les termes et conditions.</p>";
     return false;
   } else {
+    checkboxMess.innerHTML = "";
     checkboxValidationState = true;
   }
 
   // if all the required fields are valid
   // delete messages of validation
-  //close the modal
+  //close the modal and launch the valid modal
   if (
     firstNameValidationState == true &&
     lastNameValidationState == true &&
@@ -261,7 +273,9 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     for (let i = 0; i < messArray.length; i++) {
       messArray[i].innerHTML = "";
     }
+
     closeModal();
+    launchValid();
   }
 
 });
